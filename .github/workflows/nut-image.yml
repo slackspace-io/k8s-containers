@@ -1,0 +1,26 @@
+name: nut-image
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        #change to nut working-directory:
+        working-directory: ./nut
+        run: docker build . --file Dockerfile --tag nut-base:latest
+      #push to github container registry
+      - name: Push the Docker image to GitHub Container Registry
+        run: |
+          docker login ghcr.io -u ${{ github.actor }} -p ${{ secrets.GITHUB_TOKEN }}
+          docker tag nut-base:latest ghcr.io/slackspace-io/nut-base:latest
+          docker push ghcr.io/slackspace-io/nut-base:latest
