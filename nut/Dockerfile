@@ -3,9 +3,9 @@ FROM debian:latest
 RUN \
     apt-get update \
     && apt-get install -y --no-install-recommends\
-        nut=2.8.0-7 \
-        nut-snmp=2.8.0-7 \
-        nut-xml=2.8.0-7 \
+        nut=2.8.1-4 \
+        nut-snmp=2.8.1-4 \
+        nut-xml=2.8.1-4 \
         usbutils=1:014-1 \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
